@@ -25,7 +25,7 @@
       </div>
     </aside>
     <main class="main">
-      <header class="topbar"><div class="crumb">Workspace <span>/</span> <strong id="page-crumb">Overview</strong></div><div class="top-actions"><span class="mode-pill" id="mode-pill">BROWSER MODE</span><button class="avatar" title="PageWatch">P</button></div></header>
+      <header class="topbar"><div class="crumb">Workspace <span>/</span> <strong id="page-crumb">Overview</strong></div><div class="top-actions"><span class="mode-pill" id="mode-pill">BROWSER MODE</span><button class="avatar" id="language-toggle" type="button" title="Cambiar idioma" aria-label="Cambiar idioma">ES</button></div></header>
       <section class="page-heading"><div><p class="eyebrow">YOUR WEB, UNDER WATCH</p><h1 id="page-title">Overview</h1><p class="subtitle" id="page-subtitle">A clear view of the pages you care about.</p></div><button class="button button-primary" id="add-open"><span>＋</span> Add monitor</button></section>
       <section class="stats-grid" id="stats">
         <article class="stat-card"><div class="stat-top"><span>Active monitors</span><span class="stat-icon">◎</span></div><strong id="stat-monitors">0</strong><small>Pages in your workspace</small></article>
@@ -39,7 +39,7 @@
           <div class="tip-card"><div class="tip-icon">✳</div><div><strong>Browser or local?</strong><p>Browser mode stores data on this device. Run the local Python service for reliable fetching and scheduled checks.</p><button class="text-button" data-view="settings">Explore modes <span>→</span></button></div></div>
         </div>
       </section>
-      <footer>PageWatch <span>·</span> Early access <span>·</span> <a href="./README.es.md">Leer en español</a></footer>
+      <footer>PageWatch <span>·</span> Early access <span>·</span> <button type="button" class="footer-language" id="footer-language">Español</button></footer>
     </main>
   </div>
   <dialog id="monitor-dialog" class="dialog"><form id="monitor-form"><div class="dialog-head"><div><p class="eyebrow">NEW WATCHLIST ITEM</p><h2>Add a monitor</h2></div><button type="button" class="icon-button" id="dialog-close" aria-label="Close">×</button></div><label for="monitor-name">Name <span>Optional</span></label><input id="monitor-name" maxlength="100" placeholder="e.g. Project release notes"><label for="monitor-url">Public page URL</label><input id="monitor-url" type="url" required placeholder="https://example.com/changelog"><p class="field-help">Use a public page you are allowed to access. Browser mode may be blocked by cross-origin restrictions; local mode handles fetching separately.</p><div class="dialog-actions"><button type="button" class="button button-quiet" id="dialog-cancel">Cancel</button><button type="submit" class="button button-primary">Add monitor</button></div></form></dialog>
