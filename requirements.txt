@@ -1,0 +1,2 @@
+# PageWatch local service — Python 3.10+
+# No third-party dependencies required.
