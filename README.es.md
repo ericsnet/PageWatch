@@ -15,7 +15,13 @@ PageWatch es una herramienta ligera para detectar cambios en páginas web, con d
 - Interfaz adaptable a ordenadores y móviles.
 - Flujo de GitHub Actions para publicar en GitHub Pages.
 
-**Limitaciones:** el modo navegador no puede saltarse las restricciones CORS y no realiza comprobaciones programadas por sí solo. El servicio local descarga el contenido desde tu ordenador y ejecuta comprobaciones periódicas mientras está en funcionamiento. Esta primera versión es una base funcional; la sincronización entre la interfaz y el servicio local puede ampliarse en futuras versiones.
+## Importante: limitaciones de CORS en GitHub Pages
+
+La versión de GitHub Pages se ejecuta por completo en el navegador. **Las comprobaciones fallarán en sitios que no permitan solicitudes de otros orígenes mediante CORS**; PageWatch no puede anular esa protección del navegador.
+
+Si controlas la web que quieres vigilar, configura su servidor para permitir el origen de PageWatch, `https://ericsnet.github.io`, mediante la cabecera de respuesta `Access-Control-Allow-Origin` (y los métodos o encabezados que sean necesarios). No desactives CORS indiscriminadamente ni permitas todos los orígenes en una web sensible. Si no controlas la web de destino, no puedes corregir su política CORS desde PageWatch: utiliza el servicio local de Python o un backend independiente para descargar la página desde el servidor. Algunas webs también pueden bloquear solicitudes automatizadas o exigir autenticación.
+
+Las comprobaciones realizadas únicamente desde el navegador son manuales y no están programadas. El servicio local descarga el contenido desde tu ordenador y realiza comprobaciones periódicas mientras está en funcionamiento.
 
 ## Ejecución local
 
