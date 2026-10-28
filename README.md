@@ -2,44 +2,48 @@
 
 **[English](./README.md) · [Español](./README.es.md)**
 
-PageWatch is a project in its planning stage that aims to monitor web pages over time and detect meaningful changes in their content.
+PageWatch is a lightweight web-page change monitor with two deployment modes: a static browser app for GitHub Pages and an optional local Python service for server-side fetching and scheduled checks.
 
-## Planned features
+## Features in this first version
 
-- **Scheduled checks:** revisit pages at a configurable interval.
-- **Version comparison:** identify differences between previous and current content.
-- **Change history:** keep a record of detected updates.
-- **Noise filters:** ignore irrelevant changes, such as dynamic page elements.
-- **Section monitoring:** track a specific part of a page where feasible.
-- **Notifications:** alert users when changes match their configured criteria.
+- Add and manage a watchlist of public HTTP(S) pages.
+- Browser-local storage for monitors and change history; no account required.
+- Manual checks and content-change detection where browser security policies allow cross-origin access.
+- Optional local Python service with SQLite persistence and periodic checks.
+- Responsive interface designed for desktop and mobile.
+- GitHub Actions workflow for GitHub Pages deployment.
 
-These are planned goals, not implemented features.
+**Limitations:** browser mode cannot bypass CORS restrictions, and browser-only checks are not scheduled. The local service performs fetching from your computer and runs scheduled checks while it is running. This initial version is a foundation; some interface actions and local-service synchronization may be expanded in later releases.
 
-## Planned technology
+## Run locally
 
-- **Python** for fetching, checking, and comparing page content.
-- **SQLite** for storing monitored pages, snapshots, and change events.
-- **Web interface** for managing monitored pages and reviewing history.
+Requires Python 3.10 or newer. No third-party Python packages are needed.
 
-Automated checks will require the monitoring process to be running on a computer or server. The final architecture has not yet been decided.
+```bash
+python server.py
+```
+
+Open [http://127.0.0.1:8765](http://127.0.0.1:8765). The SQLite database, `pagewatch.db`, is created in the project directory after startup. Keep the process running for periodic checks. Stop it with Ctrl+C.
+
+On Windows, the same command works from PowerShell or Command Prompt if Python is on PATH.
+
+## Deploy to GitHub Pages
+
+1. Push the repository to GitHub.
+2. Open **Settings → Pages**.
+3. Set the build and deployment source to **GitHub Actions**.
+4. Push a change to `main` or manually run the **Deploy PageWatch to GitHub Pages** workflow.
+
+The workflow publishes the static frontend files. Python and SQLite are not deployed to Pages; use local mode for those features.
+
+## Privacy and responsible use
+
+Browser-mode data remains in your browser's local storage. Local-mode data is stored in the SQLite database on your computer. Only monitor pages you are allowed to access, respect site terms and access controls, and use reasonable request intervals.
 
 ## Status
 
-**Early planning.** This repository currently contains documentation and a license only. No executable code is included yet.
-
-## Initial roadmap
-
-1. Define how pages are registered and how check intervals are configured.
-2. Design storage for page content and change history.
-3. Implement page fetching and content normalization.
-4. Compare versions and filter irrelevant changes.
-5. Add section monitoring and notifications.
-6. Build a web interface for managing monitored pages.
-
-## Responsible use
-
-PageWatch is intended for public web pages. Future use must respect website terms, access restrictions, applicable policies, and reasonable request rates.
+Early development. The planned features in the original project description are not all implemented yet.
 
 ## License
 
-PageWatch is publicly viewable on GitHub but is **not open-source software**. All rights are reserved. Public access does not grant permission to copy, modify, redistribute, or otherwise use this project's contents except as permitted by applicable law or with prior written permission. See [LICENSE](./LICENSE).
+All rights reserved. See [LICENSE](./LICENSE). Public visibility does not grant permission to copy, modify, or redistribute this project without authorization, except as allowed by applicable law.
