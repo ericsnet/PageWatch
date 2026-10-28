@@ -1,7 +1,7 @@
 (() => {
   "use strict";
   const KEY="pagewatch.v1.monitors", HISTORY_KEY="pagewatch.v1.history", LANG_KEY="pagewatch.v1.lang";
-  const $=id=>document.getElementById(id);
+  const $=selector=>selector.startsWith(".")||selector.startsWith("#")?document.querySelector(selector):document.getElementById(selector);
   const state={view:"overview",monitors:read(KEY,[]),history:read(HISTORY_KEY,[]),localApi:false,lang:readLang()};
   function read(k,f){try{const v=JSON.parse(localStorage.getItem(k));return Array.isArray(v)?v:f}catch{return f}}
   function readLang(){try{return localStorage.getItem(LANG_KEY)==="es"?"es":"en"}catch{return "en"}}
