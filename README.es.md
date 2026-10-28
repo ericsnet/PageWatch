@@ -2,44 +2,48 @@
 
 **[English](./README.md) · [Español](./README.es.md)**
 
-PageWatch es un proyecto en fase de planificación cuyo objetivo es vigilar páginas web a lo largo del tiempo y detectar cambios relevantes en su contenido.
+PageWatch es una herramienta ligera para detectar cambios en páginas web, con dos modos de uso: una aplicación estática para GitHub Pages y un servicio local opcional en Python para descargar contenido y realizar comprobaciones periódicas.
 
-## Funcionalidades previstas
+## Funciones de esta primera versión
 
-- **Comprobaciones periódicas:** revisar páginas con un intervalo configurable.
-- **Comparación de versiones:** identificar diferencias entre el contenido anterior y el actual.
-- **Historial de cambios:** mantener un registro de las actualizaciones detectadas.
-- **Filtros de ruido:** ignorar cambios irrelevantes, como elementos dinámicos de una página.
-- **Seguimiento de secciones:** vigilar una parte concreta de una página cuando sea viable.
-- **Notificaciones:** avisar cuando los cambios coincidan con los criterios configurados.
+- Añadir y gestionar una lista de páginas públicas HTTP(S).
+- Guardar monitores e historial en el navegador, sin necesidad de cuenta.
+- Comprobaciones manuales y detección de cambios cuando las políticas de seguridad del navegador permiten acceder al contenido.
+- Servicio local opcional con Python, SQLite y comprobaciones periódicas.
+- Interfaz adaptable a ordenadores y móviles.
+- Flujo de GitHub Actions para publicar en GitHub Pages.
 
-Estas funciones son objetivos futuros, no funcionalidades implementadas.
+**Limitaciones:** el modo navegador no puede saltarse las restricciones CORS y no realiza comprobaciones programadas por sí solo. El servicio local descarga el contenido desde tu ordenador y ejecuta comprobaciones periódicas mientras está en funcionamiento. Esta primera versión es una base funcional; la sincronización entre la interfaz y el servicio local puede ampliarse en futuras versiones.
 
-## Tecnologías previstas
+## Ejecución local
 
-- **Python** para descargar, comprobar y comparar contenido.
-- **SQLite** para almacenar páginas vigiladas, capturas y eventos de cambio.
-- **Interfaz web** para gestionar páginas y consultar el historial.
+Necesitas Python 3.10 o posterior. No se requieren paquetes Python de terceros.
 
-Las comprobaciones automáticas requerirán que el proceso de vigilancia esté en ejecución en un equipo o servidor. La arquitectura definitiva aún no se ha decidido.
+```bash
+python server.py
+```
+
+Abre [http://127.0.0.1:8765](http://127.0.0.1:8765). La base de datos SQLite, `pagewatch.db`, se crea en la carpeta del proyecto. Mantén el proceso en ejecución para que funcionen las comprobaciones periódicas. Para detenerlo, pulsa Ctrl+C.
+
+En Windows puedes usar el mismo comando desde PowerShell o Símbolo del sistema si Python está en PATH.
+
+## Publicar en GitHub Pages
+
+1. Sube el repositorio a GitHub.
+2. Abre **Settings → Pages**.
+3. Selecciona **GitHub Actions** como origen de compilación y despliegue.
+4. Sube un cambio a `main` o ejecuta manualmente el flujo **Deploy PageWatch to GitHub Pages**.
+
+El flujo publica únicamente los archivos estáticos del frontend. Python y SQLite no se ejecutan en Pages; usa el modo local para esas funciones.
+
+## Privacidad y uso responsable
+
+Los datos del modo navegador permanecen en el almacenamiento local del navegador. El modo local guarda los datos en una base SQLite de tu ordenador. Vigila únicamente páginas a las que tengas permiso de acceder, respeta las condiciones y restricciones de cada sitio y utiliza intervalos de consulta razonables.
 
 ## Estado
 
-**Planificación inicial.** Actualmente, este repositorio contiene únicamente documentación y una licencia. Todavía no incluye código ejecutable.
-
-## Hoja de ruta inicial
-
-1. Definir cómo registrar páginas y configurar los intervalos de comprobación.
-2. Diseñar el almacenamiento del contenido y del historial.
-3. Implementar la descarga y normalización de páginas.
-4. Comparar versiones y filtrar cambios irrelevantes.
-5. Añadir seguimiento de secciones y notificaciones.
-6. Crear una interfaz web para gestionar las páginas vigiladas.
-
-## Uso responsable
-
-PageWatch está pensado para páginas web públicas. Su uso futuro deberá respetar los términos de los sitios, las restricciones de acceso, las políticas aplicables y una frecuencia de consulta razonable.
+Desarrollo inicial. No todas las funciones previstas en la descripción original están implementadas todavía.
 
 ## Licencia
 
-PageWatch puede consultarse públicamente en GitHub, pero **no es software de código abierto**. Todos los derechos están reservados. El acceso público no concede permiso para copiar, modificar, redistribuir ni utilizar de otro modo el contenido del proyecto, salvo en los casos permitidos por la legislación aplicable o con autorización previa por escrito. Consulta [LICENSE](./LICENSE).
+Todos los derechos reservados. Consulta [LICENSE](./LICENSE). La visibilidad pública no concede permiso para copiar, modificar o redistribuir este proyecto sin autorización, salvo en los casos permitidos por la legislación aplicable.
