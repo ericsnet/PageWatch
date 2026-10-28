@@ -11,6 +11,7 @@ from urllib.request import Request, urlopen
 ROOT = os.path.dirname(os.path.abspath(__file__))
 DB_PATH = os.path.join(ROOT, "pagewatch.db")
 HOST, PORT = "127.0.0.1", int(os.environ.get("PAGEWATCH_PORT", "8765"))
+ALLOWED_ORIGINS = {"https://ericsnet.github.io", "http://127.0.0.1:8765", "http://localhost:8765"}
 USER_AGENT = "PageWatch/0.1 (+local page-change monitor)"
 def now(): return datetime.now(timezone.utc).isoformat(timespec="seconds")
 def connect():
@@ -78,11 +79,19 @@ class Handler(SimpleHTTPRequestHandler):
     def end_headers(self):
         self.send_header("X-Content-Type-Options","nosniff")
         super().end_headers()
+    def cors_headers(self):
+        origin = self.headers.get("Origin", "")
+        if origin in ALLOWED_ORIGINS:
+            self.send_header("Access-Control-Allow-Origin", origin)
+            self.send_header("Vary", "Origin")
+            self.send_header("Access-Control-Allow-Methods", "GET, POST, DELETE, OPTIONS")
+            self.send_header("Access-Control-Allow-Headers", "Content-Type")
     def send_json(self,code,payload):
         body=json.dumps(payload).encode()
         self.send_response(code); self.send_header("Content-Type","application/json; charset=utf-8"); self.send_header("Content-Length",str(len(body)))
-        self.send_header("Access-Control-Allow-Origin","*"); self.send_header("Access-Control-Allow-Methods","GET, POST, OPTIONS"); self.send_header("Access-Control-Allow-Headers","Content-Type"); self.end_headers(); self.wfile.write(body)
-    def do_OPTIONS(self): self.send_response(204); self.send_header("Access-Control-Allow-Origin","*"); self.send_header("Access-Control-Allow-Methods","GET, POST, OPTIONS"); self.send_header("Access-Control-Allow-Headers","Content-Type"); self.end_headers()
+        self.cors_headers(); self.end_headers(); self.wfile.write(body)
+    def do_OPTIONS(self):
+        self.send_response(204); self.cors_headers(); self.end_headers()
     def do_GET(self):
         path=urlparse(self.path).path
         if path.startswith("/api/"):
