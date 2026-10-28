@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#f6f7f5">
+  <meta name="description" content="Track meaningful changes on web pages. Use PageWatch in your browser or run the local monitor.">
+  <title>PageWatch — Watch what changes</title>
+  <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <a class="brand" href="./" aria-label="PageWatch home"><span class="brand-mark">p<span>·</span></span><span>pagewatch</span></a>
+      <div class="workspace-label">WORKSPACE</div>
+      <nav class="nav" aria-label="Main navigation">
+        <button class="nav-item active" data-view="overview"><span class="nav-icon">▦</span> Overview</button>
+        <button class="nav-item" data-view="monitors"><span class="nav-icon">◎</span> Monitors <span class="nav-count" id="monitor-count">0</span></button>
+        <button class="nav-item" data-view="history"><span class="nav-icon">↺</span> Change history</button>
+        <button class="nav-item" data-view="settings"><span class="nav-icon">⚙</span> Settings</button>
+      </nav>
+      <div class="sidebar-bottom">
+        <div class="mode-card"><span class="mode-dot" id="mode-dot"></span><div><strong id="mode-title">Browser mode</strong><small id="mode-caption">Saved on this device</small></div></div>
+        <a class="sidebar-link" href="https://github.com/ericsnet/PageWatch" target="_blank" rel="noreferrer">GitHub repository ↗</a>
+      </div>
+    </aside>
+    <main class="main">
+      <header class="topbar"><div class="crumb">Workspace <span>/</span> <strong id="page-crumb">Overview</strong></div><div class="top-actions"><span class="mode-pill" id="mode-pill">BROWSER MODE</span><button class="avatar" title="PageWatch">P</button></div></header>
+      <section class="page-heading"><div><p class="eyebrow">YOUR WEB, UNDER WATCH</p><h1 id="page-title">Overview</h1><p class="subtitle" id="page-subtitle">A clear view of the pages you care about.</p></div><button class="button button-primary" id="add-open"><span>＋</span> Add monitor</button></section>
+      <section class="stats-grid" id="stats">
+        <article class="stat-card"><div class="stat-top"><span>Active monitors</span><span class="stat-icon">◎</span></div><strong id="stat-monitors">0</strong><small>Pages in your workspace</small></article>
+        <article class="stat-card"><div class="stat-top"><span>Changes found</span><span class="stat-icon">↗</span></div><strong id="stat-changes">0</strong><small>Recorded in this browser</small></article>
+        <article class="stat-card"><div class="stat-top"><span>Last check</span><span class="stat-icon">◷</span></div><strong class="stat-last" id="stat-last">—</strong><small id="stat-last-caption">No checks yet</small></article>
+      </section>
+      <section class="content-grid">
+        <div class="panel monitor-panel"><div class="panel-header"><div><h2 id="list-heading">Your monitors</h2><p id="list-description">Keep important pages within reach.</p></div><button class="text-button" id="view-all">View all <span>→</span></button></div><div id="monitor-list" class="monitor-list"></div><div class="empty-state" id="empty-state"><div class="empty-art">◎</div><h3>Nothing on your watchlist yet</h3><p>Add a public page to start building your change history.</p><button class="button button-primary" id="empty-add">Add your first monitor</button></div></div>
+        <div class="right-column">
+          <div class="panel activity-panel"><div class="panel-header"><div><h2>Recent activity</h2><p>Updates detected by PageWatch</p></div><span class="live-label"><span></span> LOCAL</span></div><div id="activity-list" class="activity-list"></div><div class="activity-empty" id="activity-empty">Your detected changes will appear here.</div></div>
+          <div class="tip-card"><div class="tip-icon">✳</div><div><strong>Browser or local?</strong><p>Browser mode stores data on this device. Run the local Python service for reliable fetching and scheduled checks.</p><button class="text-button" data-view="settings">Explore modes <span>→</span></button></div></div>
+        </div>
+      </section>
+      <footer>PageWatch <span>·</span> Early access <span>·</span> <a href="./README.es.md">Leer en español</a></footer>
+    </main>
+  </div>
+  <dialog id="monitor-dialog" class="dialog"><form id="monitor-form"><div class="dialog-head"><div><p class="eyebrow">NEW WATCHLIST ITEM</p><h2>Add a monitor</h2></div><button type="button" class="icon-button" id="dialog-close" aria-label="Close">×</button></div><label for="monitor-name">Name <span>Optional</span></label><input id="monitor-name" maxlength="100" placeholder="e.g. Project release notes"><label for="monitor-url">Public page URL</label><input id="monitor-url" type="url" required placeholder="https://example.com/changelog"><p class="field-help">Use a public page you are allowed to access. Browser mode may be blocked by cross-origin restrictions; local mode handles fetching separately.</p><div class="dialog-actions"><button type="button" class="button button-quiet" id="dialog-cancel">Cancel</button><button type="submit" class="button button-primary">Add monitor</button></div></form></dialog>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <script src="./app.js" defer></script>
+</body>
+</html>
