@@ -2,6 +2,8 @@
 
 **[English](./README.md) · [Español](./README.es.md)**
 
+**Versión web:** [Abrir PageWatch en GitHub Pages](https://ericsnet.github.io/PageWatch/)
+
 PageWatch es una herramienta ligera para detectar cambios en páginas web, con dos modos de uso: una aplicación estática para GitHub Pages y un servicio local opcional en Python para descargar contenido y realizar comprobaciones periódicas.
 
 ## Funciones de esta primera versión
