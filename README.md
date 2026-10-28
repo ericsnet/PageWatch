@@ -15,7 +15,13 @@ PageWatch is a lightweight web-page change monitor with two deployment modes: a 
 - Responsive interface designed for desktop and mobile.
 - GitHub Actions workflow for GitHub Pages deployment.
 
-**Limitations:** browser mode cannot bypass CORS restrictions, and browser-only checks are not scheduled. The local service performs fetching from your computer and runs scheduled checks while it is running. This initial version is a foundation; some interface actions and local-service synchronization may be expanded in later releases.
+## Important: CORS limitations in GitHub Pages mode
+
+The GitHub Pages version runs entirely in the browser. **A check will fail on sites that do not allow cross-origin requests (CORS)**; PageWatch cannot override that browser security policy.
+
+If you control the website being monitored, configure its web server to allow the PageWatch origin, `https://ericsnet.github.io`, using an appropriate `Access-Control-Allow-Origin` response header (and any required methods/headers). Do not blindly disable CORS or allow every origin on a sensitive site. If you do not control the target website, you cannot fix its CORS policy from PageWatch; use the local Python service or a separately deployed backend to fetch the page server-side instead. Some sites may still block automated requests or require authentication.
+
+Browser-only checks are manual and are not scheduled. The local service performs fetching from your computer and runs scheduled checks while it is running.
 
 ## Run locally
 
